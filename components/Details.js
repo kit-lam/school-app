@@ -19,22 +19,35 @@ export default class Details extends Component {
   }
 
   render() {
-    console.log(this.state.response && this.state.response.length);
+    const { isLoading, response } = this.state;
+    const { navigation } = this.props;
+    const email = navigation.getParam("email");
+    const website = navigation.getParam("website");
+    const phone = navigation.getParam("phone");
+    const name = navigation.getParam("name");
+
     return (
       <View style={styles.container}>
-        {this.state.isLoading ? (
+        <Text style={styles.welcome}>{name} SAT RESULTS</Text>
+        <Text>Email: {email}</Text>
+        <Text>Phone: {phone}</Text>
+        <Text>{website}</Text>
+
+        {isLoading ? (
           <Text>Loading....</Text>
-        ) : this.state.response && this.state.response.length > 0 ? (
+        ) : // check if there is SAT data for the school, if not display message to user
+        response && response.length > 0 ? (
           <FlatList
-            data={this.state.response}
+            data={response}
             renderItem={({ item }) => (
               <View>
-                <Text style={styles.welcome}>{item.school_name}</Text>
-                <Text>SATS</Text>
-                <Text>Writing Average Score: {item.sat_writing_avg_score}</Text>
-                <Text>Math Average Score: {item.sat_math_avg_score}</Text>
                 <Text>
-                  Critical Reading Average Score:
+                  Num of SAT test takers: {item.num_of_sat_test_takers}
+                </Text>
+                <Text>Writing average ccore: {item.sat_writing_avg_score}</Text>
+                <Text>Math average score: {item.sat_math_avg_score}</Text>
+                <Text>
+                  Critical reading average score:
                   {item.sat_critical_reading_avg_score}
                 </Text>
               </View>

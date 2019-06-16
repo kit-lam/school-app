@@ -47,7 +47,14 @@ export default class Home extends Component {
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => {
-                  this.props.navigation.navigate("Details", { dbn: item.dbn });
+                  // pass school details down as props so it does not need to make additional call to get school details
+                  this.props.navigation.navigate("Details", {
+                    dbn: item.dbn,
+                    email: item.school_email,
+                    name: item.school_name,
+                    phone: item.phone_number,
+                    website: item.website
+                  });
                 }}
               >
                 <Text style={styles.welcome}>{item.school_name}</Text>
