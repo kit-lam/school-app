@@ -9,6 +9,7 @@
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import React, { Component } from "react";
 import Home from "./components/Home";
+import Details from "./components/Details";
 
 const RootStack = createStackNavigator(
   {
