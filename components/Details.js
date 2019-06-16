@@ -28,10 +28,10 @@ export default class Details extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>{name} SAT RESULTS</Text>
-        <Text>Email: {email}</Text>
-        <Text>Phone: {phone}</Text>
-        <Text>{website}</Text>
+        <Text style={styles.detailsHeader}>{name}</Text>
+        <Text style={styles.detailsText}>Email: {email}</Text>
+        <Text style={styles.detailsText}>Phone: {phone}</Text>
+        <Text style={styles.detailsText}>Website: {website}</Text>
 
         {isLoading ? (
           <Text>Loading....</Text>
@@ -41,12 +41,17 @@ export default class Details extends Component {
             data={response}
             renderItem={({ item }) => (
               <View>
-                <Text>
+                <Text style={styles.results}>SAT Results</Text>
+                <Text style={styles.detailsText}>
                   Num of SAT test takers: {item.num_of_sat_test_takers}
                 </Text>
-                <Text>Writing average ccore: {item.sat_writing_avg_score}</Text>
-                <Text>Math average score: {item.sat_math_avg_score}</Text>
-                <Text>
+                <Text style={styles.detailsText}>
+                  Writing average ccore: {item.sat_writing_avg_score}
+                </Text>
+                <Text style={styles.detailsText}>
+                  Math average score: {item.sat_math_avg_score}
+                </Text>
+                <Text style={styles.detailsText}>
                   Critical reading average score:
                   {item.sat_critical_reading_avg_score}
                 </Text>
@@ -55,7 +60,7 @@ export default class Details extends Component {
             keyExtractor={item => item.dbn}
           />
         ) : (
-          <Text>No SAT results</Text>
+          <Text style={styles.results}>No SAT results</Text>
         )}
       </View>
     );
@@ -64,19 +69,24 @@ export default class Details extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#F5FCFF"
+    backgroundColor: "#F5FCFF",
+    flex: 1
   },
-  welcome: {
+  detailsHeader: {
+    fontSize: 26,
+    fontWeight: "bold",
+    margin: 10,
+    textAlign: "center"
+  },
+  results: {
+    margin: 20,
     fontSize: 20,
-    textAlign: "center",
-    margin: 10
+    textAlign: "center"
   },
-  instructions: {
-    textAlign: "center",
+  detailsText: {
     color: "#333333",
-    marginBottom: 5
+    marginBottom: 5,
+    textAlign: "center"
   }
 });

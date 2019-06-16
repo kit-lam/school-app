@@ -15,6 +15,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import { getSchools } from "../data";
+import { BorderlessButton } from "react-native-gesture-handler";
 
 export default class Home extends Component {
   state = {
@@ -22,6 +23,7 @@ export default class Home extends Component {
   };
 
   componentDidMount() {
+    // get list of NYC schools, and store in state
     getSchools().then(data =>
       this.setState({
         data,
@@ -35,33 +37,36 @@ export default class Home extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>NYC Schools</Text>
-        <Text style={styles.instructions}>
-          Click on the links for more information
-        </Text>
+        <Text style={styles.header}>NYC Schools</Text>
         {isLoading ? (
           <Text>Loading Schools...</Text>
         ) : (
-          <FlatList
-            data={data}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                onPress={() => {
-                  // pass school details down as props so it does not need to make additional call to get school details
-                  this.props.navigation.navigate("Details", {
-                    dbn: item.dbn,
-                    email: item.school_email,
-                    name: item.school_name,
-                    phone: item.phone_number,
-                    website: item.website
-                  });
-                }}
-              >
-                <Text style={styles.welcome}>{item.school_name}</Text>
-              </TouchableOpacity>
-            )}
-            keyExtractor={item => item.dbn}
-          />
+          <View style={styles.container}>
+            <Text style={styles.instructions}>
+              Click on the name for more details, and SAT results
+            </Text>
+            <FlatList
+              data={data}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  style={styles.detailsContainer}
+                  onPress={() => {
+                    // pass school details down as props so it does not need to make additional call to get school details
+                    this.props.navigation.navigate("Details", {
+                      dbn: item.dbn,
+                      email: item.school_email,
+                      name: item.school_name,
+                      phone: item.phone_number,
+                      website: item.website
+                    });
+                  }}
+                >
+                  <Text style={styles.name}>{item.school_name}</Text>
+                </TouchableOpacity>
+              )}
+              keyExtractor={item => item.dbn}
+            />
+          </View>
         )}
       </View>
     );
@@ -70,19 +75,32 @@ export default class Home extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#F5FCFF"
+    backgroundColor: "white",
+    flex: 1,
+    justifyContent: "center"
   },
-  welcome: {
+  header: {
+    fontSize: 26,
+    fontWeight: "bold",
+    margin: 10,
+    textAlign: "center"
+  },
+  name: {
     fontSize: 20,
-    textAlign: "center",
-    margin: 10
+    margin: 10,
+    textAlign: "center"
   },
   instructions: {
-    textAlign: "center",
     color: "#333333",
-    marginBottom: 5
+    marginBottom: 5,
+    textAlign: "center"
+  },
+  detailsContainer: {
+    alignItems: "center",
+    backgroundColor: "#e8f4f8",
+    borderRadius: 10,
+    margin: 10,
+    width: "90%"
   }
 });
