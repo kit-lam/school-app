@@ -31,8 +31,10 @@ export default class Details extends Component {
         <Text style={styles.detailsHeader}>{name}</Text>
         <Text style={styles.detailsText}>Email: {email}</Text>
         <Text style={styles.detailsText}>Phone: {phone}</Text>
+        {/*TODO: make the website a link */}
         <Text style={styles.detailsText}>Website: {website}</Text>
 
+        {/* TODO: display a loading spinner */}
         {isLoading ? (
           <Text>Loading....</Text>
         ) : // check if there is SAT data for the school, if not display message to user

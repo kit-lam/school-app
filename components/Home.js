@@ -38,6 +38,8 @@ export default class Home extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.header}>NYC Schools</Text>
+
+        {/* TODO: display a loading spinner */}
         {isLoading ? (
           <Text>Loading Schools...</Text>
         ) : (
